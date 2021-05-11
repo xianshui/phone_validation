@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:toast/toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './widgets/country_selector.dart';
 import './constants.dart';
 import './http_util.dart';
@@ -34,6 +35,18 @@ class _ValidationPageState extends State<ValidationPage> {
 
     countryCode = 'HK';
     codeEditingController.text = '+852';
+
+    readHistory();
+  }
+
+  void readHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    phoneNumbers = await prefs.getStringList('phone_numbers') ?? [];
+  }
+
+  void saveHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('phone_numbers', phoneNumbers);
   }
 
   void onValidate() async {
@@ -56,6 +69,8 @@ class _ValidationPageState extends State<ValidationPage> {
 
         if (!phoneNumbers.contains(number)) {
           phoneNumbers.insert(0, number);
+
+          saveHistory();
         }
       } else {
         setState(() {
@@ -161,6 +176,7 @@ class _ValidationPageState extends State<ValidationPage> {
                             setState(() {
                               countryCode = value.countryCode;
                               codeEditingController.text = value.dialCode;
+                              status = '';
                             });
                           },
                         ),
@@ -178,6 +194,7 @@ class _ValidationPageState extends State<ValidationPage> {
                       Expanded(
                         child:
                         TextField(
+                          key: Key('phone_number'),
                           style: TextStyle(
                               fontSize: 14.w
                           ),
@@ -217,6 +234,7 @@ class _ValidationPageState extends State<ValidationPage> {
                   SizedBox(height: 30.w,),
                   Text(
                     status,
+                    key: Key('status'),
                     style: TextStyle(
                       color: status.contains('invalid') ? Colors.red : Color(AppColors.main),
                       fontSize: 13.w,
@@ -224,6 +242,7 @@ class _ValidationPageState extends State<ValidationPage> {
                   ),
                   SizedBox(height: 30.w,),
                   RaisedButton(
+                    key: Key('validate'),
                     padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 10.w),
                     disabledColor: Color(0xffe4e4e4),
                     elevation: 0,
