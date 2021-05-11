@@ -1,6 +1,19 @@
-# validation
+# Phone validation
 
-A new Flutter project.
+A simple app for checking if a phone number is valid
+
+## build environment
+Flutter Channel stable, 1.22.4
+
+sdk: ">=2.7.0 <3.0.0"
+
+
+## Screenshots
+
+![](https://raw.githubusercontent.com/xianshui/phone_validation/master/screenshots/phone_validation.png)
+
+## Presentation video 
+[![video link]()](https://github.com/xianshui/phone_validation/raw/master/screenshots/video.mp4)
 
 ## Getting Started
 
