@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import './widgets/country_selector.dart';
-import './constants.dart';
+import '../widgets/country_selector.dart';
+import '../constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:toast/toast.dart';
-import './http_util.dart';
+import '../utils/http_util.dart';
 
 class HistoryPage extends StatelessWidget {
   final List<String> phoneNumbers;

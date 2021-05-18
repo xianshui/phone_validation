@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:toast/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import './widgets/country_selector.dart';
-import './constants.dart';
-import './http_util.dart';
-import './history_page.dart';
+import '../widgets/country_selector.dart';
+import '../constants.dart';
+import '../utils/http_util.dart';
+import 'history_page.dart';
+import '../models/theme_model.dart';
+import 'package:provider/provider.dart';
 
 class ValidationPage extends StatefulWidget {
   ValidationPage({Key key, this.title}) : super(key: key);
@@ -85,6 +87,10 @@ class _ValidationPageState extends State<ValidationPage> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryPage(phoneNumbers: phoneNumbers,)));
   }
 
+  void changeTheme() {
+    Provider.of<ThemeModel>(context).switchPrimaryColor();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (ScreenUtil() == null) {
@@ -138,7 +144,7 @@ class _ValidationPageState extends State<ValidationPage> {
                                 decoration: InputDecoration(
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(AppColors.main),
+                                      color: Theme.of(context).primaryColor,
                                     ),
                                   ),
                                   enabledBorder: UnderlineInputBorder(
@@ -203,7 +209,7 @@ class _ValidationPageState extends State<ValidationPage> {
                           decoration: InputDecoration(
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Color(AppColors.main),
+                                  color: Theme.of(context).primaryColor,
                                 )
                             ),
                             enabledBorder: UnderlineInputBorder(
@@ -236,7 +242,7 @@ class _ValidationPageState extends State<ValidationPage> {
                     status,
                     key: Key('status'),
                     style: TextStyle(
-                      color: status.contains('invalid') ? Colors.red : Color(AppColors.main),
+                      color: status.contains('invalid') ? Colors.red : Theme.of(context).primaryColor,
                       fontSize: 13.w,
                     ),
                   ),
@@ -247,7 +253,7 @@ class _ValidationPageState extends State<ValidationPage> {
                     disabledColor: Color(0xffe4e4e4),
                     elevation: 0,
                     onPressed: onValidate,
-                    color: Color(AppColors.main),
+                    color: Theme.of(context).primaryColor,
                     child: Text(
                       'Validate',
                       style: TextStyle(
@@ -265,7 +271,18 @@ class _ValidationPageState extends State<ValidationPage> {
                     child: Text(
                       'Validation history',
                       style: TextStyle(
-                        color: Color(AppColors.main),
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 13.w,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.w,),
+                  TextButton(
+                    onPressed: changeTheme,
+                    child: Text(
+                      'change theme',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
                         fontSize: 13.w,
                       ),
                     ),
