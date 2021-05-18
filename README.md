@@ -11,6 +11,7 @@ sdk: ">=2.7.0 <3.0.0"
 ## Screenshots
 
 ![](https://raw.githubusercontent.com/xianshui/phone_validation/master/screenshots/phone_validation.png)
+![](https://raw.githubusercontent.com/xianshui/phone_validation/master/screenshots/phone_validation1.png)
 
 
 ## Presentation video 
